@@ -145,11 +145,23 @@ const dateText= document.getElementById("dateText")
 const venueText= document.getElementById("venueText")
 const vidLink= document.getElementById("vidLink")
 
+const prevAndNxtDiv = document.getElementById("ntxAndPrevDiv")
 const prevBtn= document.getElementById("prev")
 const nxtBtn= document.getElementById("nxt")
 
 
 getMatchBtn.addEventListener("click",()=>{
+
+        if(teamDiv.classList.contains("hidden")){
+        teamDiv.classList.remove("hidden")
+        dateText.classList.remove("hidden")
+        venueText.classList.remove("hidden")
+        vidLink.classList.remove("hidden")
+        prevAndNxtDiv.classList.remove("hidden")
+
+    }
+
+
     if(output.classList.contains("hidden")){
         output.classList.remove("hidden")
     }
@@ -199,5 +211,98 @@ const team2 = document.getElementById("team2")
 
 
 // Team list
+
+async function getId(str){
+     const res = await fetch(str)
+if (!res.ok) {
+    // outImg.setAttribute("src", "./Assets/404.jpeg")
+    console.log("err")
+    let newMsg = document.createElement("p")
+    newMsg.textContent="Error! Please try a different option."
+    document.body.insertBefore(newMsg, document.body.children[0]);
+
+    //  hName.textContent = ""
+    // hTeamLogo.setAttribute("src","")
+    // hScore.textContent = ""
+
+    // aName.textContent = ""
+    // aTeamLogo.setAttribute("src","")
+    // aScore.textContent = ""
+
+    // dateText.textContent = ""
+    // venueText.textContent = ""
+    // vidLink.setAttribute("href", "")
+    
+
+throw Error("Something went wrong.")
+}
+return res.json()
+
+}
+
+async function getPlayers(str){
+     const res = await fetch(str)
+if (!res.ok) {
+    // outImg.setAttribute("src", "./Assets/404.jpeg")
+    console.log("err")
+    let newMsg = document.createElement("p")
+    newMsg.textContent="Error! Please try a different option."
+    document.body.insertBefore(newMsg, document.body.children[0]);
+
+    //  hName.textContent = ""
+    // hTeamLogo.setAttribute("src","")
+    // hScore.textContent = ""
+
+    // aName.textContent = ""
+    // aTeamLogo.setAttribute("src","")
+    // aScore.textContent = ""
+
+    // dateText.textContent = ""
+    // venueText.textContent = ""
+    // vidLink.setAttribute("href", "")
+    
+
+throw Error("Something went wrong.")
+}
+return res.json()
+
+}
+
+
+const getListBtn = document.getElementById("listBtn")
+getListBtn.addEventListener("click",()=>{
+
+        if(output.classList.contains("hidden")){
+        output.classList.remove("hidden")
+    }
+
+    if(!teamDiv.classList.contains("hidden")){
+        teamDiv.classList.add("hidden")
+        dateText.classList.add("hidden")
+        venueText.classList.add("hidden")
+        vidLink.classList.add("hidden")
+        prevAndNxtDiv.classList.add("hidden")
+
+    }
+
+    let str = `https://www.thesportsdb.com/api/v1/json/123/`
+    const playerList = document.getElementById("playerList").value
+    str+=`searchteams.php?t=${playerList}`;
+
+     data = getId(str)
+.then((data)=>{
+    console.log(data)
+    let id = data.teams[0].idTeam
+    str = `https://www.thesportsdb.com/api/v1/json/123/`
+    let newStr = str+=`lookup_all_players.php?id=${id}`
+
+    let newData=getPlayers(newStr)
+    .then((newData)=>{
+        console.log(newData)
+        console.log(newStr)
+    })
+})
+
+})
 
 
