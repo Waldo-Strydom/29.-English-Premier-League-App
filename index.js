@@ -291,18 +291,63 @@ getListBtn.addEventListener("click",()=>{
 
      data = getId(str)
 .then((data)=>{
-    console.log(data)
+
     let id = data.teams[0].idTeam
     str = `https://www.thesportsdb.com/api/v1/json/123/`
     let newStr = str+=`lookup_all_players.php?id=${id}`
 
     let newData=getPlayers(newStr)
     .then((newData)=>{
-        console.log(newData)
-        console.log(newStr)
+        displayTeam(newData)
     })
 })
 
 })
 
+const  displayTeam = (list)=>{
+    console.log(list)
+    output.innerHTML= ""
 
+    let players = list.player
+    console.log(players)
+            /*<div class="playerInfoDiv" class="hidden">
+            <div class="infoDiv">
+            <p class="pName">Ben White</p>
+            <p class="pNum">4</p>
+            <img class="pPic" src="./Assets/premier-league/testImg.png">
+            </div>
+            <p class="pBio">Benjamin William White (born 8 October 1997) is an English professional footballer who plays as a centre-back for Premier League club Arsenal and the England national team.\r\n\r\nWhilst with Brighton & Hove Albion, White had spells on loan at Newport County of League Two, Peterborough United of League One and Leeds United. At Leeds he played in every game, helping them win the 2019–20 Championship and gain promotion to the Premier League. White has played in all top four English leagues, making his way up from League Two to the Premier League in the space of four seasons.\r\n\r\nIn the summer of 2020, speculation regarding his football future was rife, with Leeds public on their eagerness to sign White on a permanent deal and other clubs registering their interest. Ultimately, he stayed on the south coast, signing a long term contract at Brighton. He made 36 Premier League appearances in the 2020–21 season, winning Brighton's 2020–21 player of the season award.\r\n\r\nWhite was named in the England team for the first time in May 2021, where he was selected as part of the provisional 33-man squad for UEFA Euro 2020. He was later cut from the squad, though remained on standby for the tournament and made his debut as a substitute in June in a 1–0 win over Austria. He made his first start for England in the second and final warm up match in another 1–0 victory, this time against Romania on 6 June. On 7 June, he was named in the squad as a replacement for Trent Alexander-Arnold.</p>
+
+            </div>
+            */
+    for(player of players){
+      let newPlayerInfoDiv = document.createElement("div")
+      newPlayerInfoDiv.classList.add("playerInfoDiv")
+      output.appendChild(newPlayerInfoDiv)
+
+      let newinfoDiv = document.createElement("div")
+      newinfoDiv.classList.add("infoDiv")
+      newPlayerInfoDiv.appendChild(newinfoDiv)
+
+      let newPName = document.createElement("p")
+        newPName.textContent= `${player.strPlayer}`
+        newPName.classList.add("pName")
+        newinfoDiv.appendChild(newPName)
+
+      let newPNum = document.createElement("p")
+        newPNum.textContent= `${player.strNumber}`
+        newPNum.classList.add("pNum")
+        newinfoDiv.appendChild(newPNum)  
+        
+      let newImg = document.createElement("img")
+        newImg.classList.add("pPic")
+        newImg.setAttribute("src",`${player.strCutout}`)
+        newinfoDiv.appendChild(newImg)   
+        
+      let newPBio = document.createElement("p")
+        newPBio.textContent= `${player.strDescriptionEN}`
+        newPBio.classList.add("pBio")
+        newPlayerInfoDiv.appendChild(newPBio)   
+
+    }
+}
