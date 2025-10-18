@@ -32,23 +32,22 @@ let localMatches = {
 
 }
 
+let localTeams = {
+
+}
+
+class Team{
+    constructor(players){
+        this.players = players;
+    }
+}
+
 class Match{
     constructor(event){
         this.event = event
         
     }
 }
-
-let a = new Match("arsenal","arsenal")
-let b = new Match("chealea", "chealsea")
-
-// let newObj = {...localObj, a}
-// localObj=newObj
-// console.log(localObj)
-
-// newObj = {...localObj, b}
-// localObj=newObj
-// console.log(localObj)
 
 const displayMatch = (data)=>{
 
@@ -151,6 +150,14 @@ const nxtBtn= document.getElementById("nxt")
 
 
 getMatchBtn.addEventListener("click",()=>{
+
+        if(document.querySelector(".playerInfoDiv")){
+        console.log("yes")
+      
+        document.querySelectorAll(".playerInfoDiv").forEach((e)=>{
+            e.remove()
+        })
+    }
 
         if(teamDiv.classList.contains("hidden")){
         teamDiv.classList.remove("hidden")
@@ -270,7 +277,9 @@ return res.json()
 
 
 const getListBtn = document.getElementById("listBtn")
+
 getListBtn.addEventListener("click",()=>{
+const playerList = document.getElementById("playerList").value
 
         if(output.classList.contains("hidden")){
         output.classList.remove("hidden")
@@ -285,8 +294,12 @@ getListBtn.addEventListener("click",()=>{
 
     }
 
-    let str = `https://www.thesportsdb.com/api/v1/json/123/`
-    const playerList = document.getElementById("playerList").value
+    let key = `${playerList}`
+    console.log(key)
+    if(localTeams[key]==null){
+    
+            let str = `https://www.thesportsdb.com/api/v1/json/123/`
+    
     str+=`searchteams.php?t=${playerList}`;
 
      data = getId(str)
@@ -298,28 +311,42 @@ getListBtn.addEventListener("click",()=>{
 
     let newData=getPlayers(newStr)
     .then((newData)=>{
+
+            let nTeam =new Team(newData)
+    localTeams[key] = nTeam
+    console.log(localTeams)
         displayTeam(newData)
     })
 })
+    
+    }else{
+        newData = localTeams[`${playerList}`].players
+        console.log("localVir")
+        displayTeam(newData)
+    }
 
+    
+        
+
+    
 })
 
 const  displayTeam = (list)=>{
     console.log(list)
-    output.innerHTML= ""
+    // output.innerHTML= ""
+    teamDiv.classList.add("hidden")
+        
+    if(document.querySelector(".playerInfoDiv")){
+        console.log("yes")
+      
+        document.querySelectorAll(".playerInfoDiv").forEach((e)=>{
+            e.remove()
+        })
+    }
 
     let players = list.player
     console.log(players)
-            /*<div class="playerInfoDiv" class="hidden">
-            <div class="infoDiv">
-            <p class="pName">Ben White</p>
-            <p class="pNum">4</p>
-            <img class="pPic" src="./Assets/premier-league/testImg.png">
-            </div>
-            <p class="pBio">Benjamin William White (born 8 October 1997) is an English professional footballer who plays as a centre-back for Premier League club Arsenal and the England national team.\r\n\r\nWhilst with Brighton & Hove Albion, White had spells on loan at Newport County of League Two, Peterborough United of League One and Leeds United. At Leeds he played in every game, helping them win the 2019–20 Championship and gain promotion to the Premier League. White has played in all top four English leagues, making his way up from League Two to the Premier League in the space of four seasons.\r\n\r\nIn the summer of 2020, speculation regarding his football future was rife, with Leeds public on their eagerness to sign White on a permanent deal and other clubs registering their interest. Ultimately, he stayed on the south coast, signing a long term contract at Brighton. He made 36 Premier League appearances in the 2020–21 season, winning Brighton's 2020–21 player of the season award.\r\n\r\nWhite was named in the England team for the first time in May 2021, where he was selected as part of the provisional 33-man squad for UEFA Euro 2020. He was later cut from the squad, though remained on standby for the tournament and made his debut as a substitute in June in a 1–0 win over Austria. He made his first start for England in the second and final warm up match in another 1–0 victory, this time against Romania on 6 June. On 7 June, he was named in the squad as a replacement for Trent Alexander-Arnold.</p>
 
-            </div>
-            */
     for(player of players){
       let newPlayerInfoDiv = document.createElement("div")
       newPlayerInfoDiv.classList.add("playerInfoDiv")
