@@ -48,24 +48,8 @@ class Match{
     }
 }
 
-const displayMatch = (data)=>{
-
-    if(document.getElementById("err")){
-        document.getElementById("err").remove()
-    }
-
-
-     const eventArr = data["event"]
-
-        if(eventArr==null&&output.children[0].id!="err"){
-
-     
-    let newMsg = document.createElement("p")
-    newMsg.setAttribute("id","err")
-    newMsg.textContent="Error! Please try a different option."
-    output.insertBefore(newMsg, output.children[0]);
-
-         hName.textContent = ""
+const clearMatch = ()=>{
+             hName.textContent = ""
     hTeamLogo.setAttribute("src","")
     hScore.textContent = ""
 
@@ -78,7 +62,29 @@ const displayMatch = (data)=>{
     vidLink.setAttribute("href", "")
     vidText.textContent = "No video available."
     vidLink.style.cursor = "not-allowed";
+}
+
+const displayMatch = (data)=>{
+
+    if(document.getElementById("err")){
+        document.getElementById("err").remove()
     }
+
+
+     const eventArr = data["event"]
+
+    if(eventArr==null&&output.children[0].id!="err"){
+    
+     
+    let newMsg = document.createElement("p")
+    newMsg.setAttribute("id","err")
+    newMsg.textContent="Error! Please try a different option."
+    output.insertBefore(newMsg, output.children[0]);
+     clearMatch()   
+
+    }else{
+
+    
 
    
     hName.textContent = eventArr[i].strHomeTeam
@@ -121,7 +127,7 @@ const displayMatch = (data)=>{
         nxtBtn.disabled=true
     }
 
-
+    }
 }
 
 
@@ -199,6 +205,7 @@ const team2 = document.getElementById("team2")
 
 })
 .catch((error)=>{
+   
    let newMsg = document.createElement("p")
     newMsg.setAttribute("id","err")
     if(error=="TypeError: Failed to fetch"){

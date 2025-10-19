@@ -119,6 +119,10 @@ a:hover {
     cursor: pointer;
 }
 
+#playerListDiv{
+    margin-top: 3vh;
+}
+
 .playerInfoDiv{
     
     text-align: center;
