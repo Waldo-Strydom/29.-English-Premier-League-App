@@ -156,6 +156,15 @@ a:hover {
 
 @media only screen and (max-width: 600px) {
 
+    #teamDiv{
+        flex-direction: column;
+        width: 100%;
+
+    }
+
+    .teamOut{
+       width: 100%; 
+    }
 
     .playerInfoDiv{
         flex-direction: column;

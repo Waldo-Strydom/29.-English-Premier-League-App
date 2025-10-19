@@ -58,8 +58,9 @@ const displayMatch = (data)=>{
     console.log("a")
      const eventArr = data["event"]
 
-         if(eventArr==null&&output.children[0].id!="err"){
+        if(eventArr==null&&output.children[0].id!="err"){
     console.log("err")
+     
     let newMsg = document.createElement("p")
     newMsg.setAttribute("id","err")
     newMsg.textContent="Error! Please try a different option."
@@ -76,6 +77,8 @@ const displayMatch = (data)=>{
     dateText.textContent = ""
     venueText.textContent = ""
     vidLink.setAttribute("href", "")
+    vidText.textContent = "No video available."
+    vidLink.style.cursor = "not-allowed";
     }
 
    
@@ -94,6 +97,13 @@ const displayMatch = (data)=>{
     dateText.textContent = eventArr[i].dateEvent
     venueText.textContent = eventArr[i].strVenue
     vidLink.setAttribute("href", eventArr[i].strVideo)
+    if(eventArr[i].strVideo==null){
+        vidText.textContent = "No video available."
+        vidLink.style.cursor = "not-allowed";
+    }else{
+        vidText.textContent = "Highlights Video"
+        vidLink.style.cursor = "pointer";
+    }
  
 
     vidLink.addEventListener("click",(e)=>{
@@ -143,6 +153,7 @@ const aScore= document.getElementById("aScore")
 const dateText= document.getElementById("dateText")
 const venueText= document.getElementById("venueText")
 const vidLink= document.getElementById("vidLink")
+const vidText= document.getElementById("vidText")
 
 const prevAndNxtDiv = document.getElementById("ntxAndPrevDiv")
 const prevBtn= document.getElementById("prev")
@@ -192,6 +203,17 @@ const team2 = document.getElementById("team2")
    displayMatch(obj)
 
 })
+.catch((error)=>{
+   let newMsg = document.createElement("p")
+    newMsg.setAttribute("id","err")
+    if(error=="TypeError: Failed to fetch"){
+        newMsg.textContent=`Error! Check internet connection.`
+    }else{
+         newMsg.textContent=`Error! Please try a different option.`
+    }
+   console.log(error)
+    output.insertBefore(newMsg, output.children[0]);  
+})
     }else{
         console.log("else")
         obj = localMatches[key].event
@@ -222,11 +244,14 @@ const team2 = document.getElementById("team2")
 async function getId(str){
      const res = await fetch(str)
 if (!res.ok) {
+
+      showError()
+
     // outImg.setAttribute("src", "./Assets/404.jpeg")
-    console.log("err")
-    let newMsg = document.createElement("p")
-    newMsg.textContent="Error! Please try a different option."
-    document.body.insertBefore(newMsg, document.body.children[0]);
+    // console.log("err")
+    // let newMsg = document.createElement("p")
+    // newMsg.textContent="Error! Please try a different option."
+    // document.body.insertBefore(newMsg, document.body.children[0]);
 
     //  hName.textContent = ""
     // hTeamLogo.setAttribute("src","")
@@ -252,9 +277,8 @@ async function getPlayers(str){
 if (!res.ok) {
     // outImg.setAttribute("src", "./Assets/404.jpeg")
     console.log("err")
-    let newMsg = document.createElement("p")
-    newMsg.textContent="Error! Please try a different option."
-    document.body.insertBefore(newMsg, document.body.children[0]);
+    
+    showError()
 
     //  hName.textContent = ""
     // hTeamLogo.setAttribute("src","")
@@ -275,10 +299,27 @@ return res.json()
 
 }
 
+const showError = ()=>{
+    console.log("showError")
+    console.log(output.children[0].id)
+    if(output.children[0].id!="err"){
+    let newMsg = document.createElement("p")
+    newMsg.setAttribute("id","err")
+    newMsg.textContent="Error! Please try a different option."
+    output.insertBefore(newMsg, output.children[0])
+    }
+}
+
 
 const getListBtn = document.getElementById("listBtn")
 
 getListBtn.addEventListener("click",()=>{
+
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+
 const playerList = document.getElementById("playerList").value
 
         if(output.classList.contains("hidden")){
@@ -304,7 +345,7 @@ const playerList = document.getElementById("playerList").value
 
      data = getId(str)
 .then((data)=>{
-
+    console.log(data)
     let id = data.teams[0].idTeam
     str = `https://www.thesportsdb.com/api/v1/json/123/`
     let newStr = str+=`lookup_all_players.php?id=${id}`
@@ -317,6 +358,28 @@ const playerList = document.getElementById("playerList").value
     console.log(localTeams)
         displayTeam(newData)
     })
+    .catch((error)=>{
+   let newMsg = document.createElement("p")
+    newMsg.setAttribute("id","err")
+    if(error=="TypeError: Failed to fetch"){
+        newMsg.textContent=`Error! Check internet connection.`
+    }else{
+         newMsg.textContent=`Error! Please try a different option.`
+    }
+   console.log(error)
+    output.insertBefore(newMsg, output.children[0]);  
+})
+})
+.catch((error)=>{
+   let newMsg = document.createElement("p")
+    newMsg.setAttribute("id","err")
+    if(error=="TypeError: Failed to fetch"){
+        newMsg.textContent=`Error! Check internet connection.`
+    }else{
+         newMsg.textContent=`Error! Please try a different option.`
+    }
+   console.log(error)
+    output.insertBefore(newMsg, output.children[0]);  
 })
     
     }else{
@@ -332,10 +395,27 @@ const playerList = document.getElementById("playerList").value
 })
 
 const  displayTeam = (list)=>{
+
+    if(document.getElementById("err")){
+        document.getElementById("err").remove()
+    }
+
+    console.log("a")
+     const eventArr = list["player"]
+
+         if(eventArr==null&&output.children[0].id!="err"){
+    console.log("err")
+    let newMsg = document.createElement("p")
+    newMsg.setAttribute("id","err")
+    newMsg.textContent="Error! Please try a different option."
+    console.log(output)
+    output.insertBefore(newMsg, output.children[0]);
+
+
     console.log(list)
     // output.innerHTML= ""
     teamDiv.classList.add("hidden")
-        
+         }
     if(document.querySelector(".playerInfoDiv")){
         console.log("yes")
       
