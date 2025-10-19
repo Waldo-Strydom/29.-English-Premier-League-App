@@ -38,11 +38,11 @@ body{
 #output{
     border: 1vw groove var(--white);
     width: 90vw;
-    /* box-shadow: 1vw 1vw 1vw var(--white); */
+
     display: flex;
     flex-direction: column;
     justify-self: center;
-    /* margin-left: 5vw; */
+
 }
 
 #teamDiv{
