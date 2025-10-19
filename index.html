@@ -8,7 +8,7 @@
     <script src="./index.js" defer></script>
 </head>
 <body>
-    <img id="logo" src="./Assets/premier-league/logo.png">
+    <img id="logo" src="./Assets/premier-league/logo.png" alt="English Premier League Logo">
   <div id="wrapper">
     <h1>English Premier League</h1>
     <div id="output" class="hidden">
@@ -62,7 +62,7 @@
        </div>
     </div> 
     <div id="selectionDiv">
-        <select id="team1" name="team1" class="selector">
+        <select id="team1" name="team1" class="selector" aria-label="home team selection">
             <optgroup label="Team 1">
                 <option value="Arsenal">Arsenal</option>
                 <option value="Aston Villa">Aston Villa</option>
@@ -92,7 +92,7 @@
             
         </select>
             <button id="getMatch" class="getBtn">Get Match</button>
-                <select id="team2" name="team2" class="selector">
+                <select id="team2" name="team2" class="selector" aria-label="away team selection">
             <optgroup label="Team 2">
                 <option value="Arsenal">Arsenal</option>
                 <option value="Aston Villa">Aston Villa</option>
@@ -124,7 +124,7 @@
         
     </div>
     <div id="playerListDiv">
-        <select id="playerList" name="playerList" class="selector">
+        <select id="playerList" name="playerList" class="selector" aria-label="player list selection">
                             <option value="Arsenal">Arsenal</option>
                 <option value="Aston Villa">Aston Villa</option>
                 <option value="Bournemouth">Bournemouth</option>

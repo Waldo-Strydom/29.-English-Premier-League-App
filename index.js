@@ -312,7 +312,7 @@ const playerList = document.getElementById("playerList").value
 
     if(localTeams[key]==null){
     
-            let str = `https://www.thesportsdb.com/api/v1/json/123/`
+    let str = `https://www.thesportsdb.com/api/v1/json/123/`
     
     str+=`searchteams.php?t=${playerList}`;
 
@@ -420,6 +420,7 @@ const  displayTeam = (list)=>{
       let newImg = document.createElement("img")
         newImg.classList.add("pPic")
         newImg.setAttribute("src",`${player.strCutout}`)
+        newImg.setAttribute("alt", `Picture of ${player.strPlayer}`)
         newinfoDiv.appendChild(newImg)   
         
       let newPBio = document.createElement("p")
