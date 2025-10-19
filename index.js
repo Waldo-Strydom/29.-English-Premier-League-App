@@ -3,8 +3,7 @@ async function getMatch(){
     
    const res = await fetch(str)
 if (!res.ok) {
-    // outImg.setAttribute("src", "./Assets/404.jpeg")
-    console.log("err")
+
     let newMsg = document.createElement("p")
     newMsg.textContent="Error! Please try a different option."
     document.body.insertBefore(newMsg, document.body.children[0]);
@@ -55,11 +54,11 @@ const displayMatch = (data)=>{
         document.getElementById("err").remove()
     }
 
-    console.log("a")
+
      const eventArr = data["event"]
 
         if(eventArr==null&&output.children[0].id!="err"){
-    console.log("err")
+
      
     let newMsg = document.createElement("p")
     newMsg.setAttribute("id","err")
@@ -82,10 +81,6 @@ const displayMatch = (data)=>{
     }
 
    
-    
-    // output.classList.remove("hidden")
-    console.log(eventArr)
-    console.log(i)
     hName.textContent = eventArr[i].strHomeTeam
     hTeamLogo.setAttribute("src",eventArr[i].strHomeTeamBadge)
     hScore.textContent = eventArr[i].intHomeScore
@@ -163,7 +158,7 @@ const nxtBtn= document.getElementById("nxt")
 getMatchBtn.addEventListener("click",()=>{
 
         if(document.querySelector(".playerInfoDiv")){
-        console.log("yes")
+
       
         document.querySelectorAll(".playerInfoDiv").forEach((e)=>{
             e.remove()
@@ -197,7 +192,7 @@ const team2 = document.getElementById("team2")
     
     let nMatch =new Match(obj)
     localMatches[key] = nMatch
-    console.log(localMatches)
+    
 
 
    displayMatch(obj)
@@ -211,27 +206,27 @@ const team2 = document.getElementById("team2")
     }else{
          newMsg.textContent=`Error! Please try a different option.`
     }
-   console.log(error)
+
     output.insertBefore(newMsg, output.children[0]);  
 })
     }else{
-        console.log("else")
+    
         obj = localMatches[key].event
-        console.log(obj)
+     
         displayMatch(obj)
     }
  
 })
 
        prevBtn.addEventListener("click",()=>{
-        console.log("run")
+
         i-=1;
         displayMatch(obj)
     })
 
     nxtBtn.addEventListener("click", ()=>{
         i+=1;
-        console.log(obj)
+
         displayMatch(obj)
     })
 
@@ -247,24 +242,7 @@ if (!res.ok) {
 
       showError()
 
-    // outImg.setAttribute("src", "./Assets/404.jpeg")
-    // console.log("err")
-    // let newMsg = document.createElement("p")
-    // newMsg.textContent="Error! Please try a different option."
-    // document.body.insertBefore(newMsg, document.body.children[0]);
 
-    //  hName.textContent = ""
-    // hTeamLogo.setAttribute("src","")
-    // hScore.textContent = ""
-
-    // aName.textContent = ""
-    // aTeamLogo.setAttribute("src","")
-    // aScore.textContent = ""
-
-    // dateText.textContent = ""
-    // venueText.textContent = ""
-    // vidLink.setAttribute("href", "")
-    
 
 throw Error("Something went wrong.")
 }
@@ -275,22 +253,11 @@ return res.json()
 async function getPlayers(str){
      const res = await fetch(str)
 if (!res.ok) {
-    // outImg.setAttribute("src", "./Assets/404.jpeg")
-    console.log("err")
+
     
     showError()
 
-    //  hName.textContent = ""
-    // hTeamLogo.setAttribute("src","")
-    // hScore.textContent = ""
 
-    // aName.textContent = ""
-    // aTeamLogo.setAttribute("src","")
-    // aScore.textContent = ""
-
-    // dateText.textContent = ""
-    // venueText.textContent = ""
-    // vidLink.setAttribute("href", "")
     
 
 throw Error("Something went wrong.")
@@ -300,8 +267,7 @@ return res.json()
 }
 
 const showError = ()=>{
-    console.log("showError")
-    console.log(output.children[0].id)
+
     if(output.children[0].id!="err"){
     let newMsg = document.createElement("p")
     newMsg.setAttribute("id","err")
@@ -336,7 +302,7 @@ const playerList = document.getElementById("playerList").value
     }
 
     let key = `${playerList}`
-    console.log(key)
+
     if(localTeams[key]==null){
     
             let str = `https://www.thesportsdb.com/api/v1/json/123/`
@@ -345,7 +311,7 @@ const playerList = document.getElementById("playerList").value
 
      data = getId(str)
 .then((data)=>{
-    console.log(data)
+ 
     let id = data.teams[0].idTeam
     str = `https://www.thesportsdb.com/api/v1/json/123/`
     let newStr = str+=`lookup_all_players.php?id=${id}`
@@ -355,7 +321,7 @@ const playerList = document.getElementById("playerList").value
 
             let nTeam =new Team(newData)
     localTeams[key] = nTeam
-    console.log(localTeams)
+ 
         displayTeam(newData)
     })
     .catch((error)=>{
@@ -366,7 +332,7 @@ const playerList = document.getElementById("playerList").value
     }else{
          newMsg.textContent=`Error! Please try a different option.`
     }
-   console.log(error)
+
     output.insertBefore(newMsg, output.children[0]);  
 })
 })
@@ -378,13 +344,13 @@ const playerList = document.getElementById("playerList").value
     }else{
          newMsg.textContent=`Error! Please try a different option.`
     }
-   console.log(error)
+
     output.insertBefore(newMsg, output.children[0]);  
 })
     
     }else{
         newData = localTeams[`${playerList}`].players
-        console.log("localVir")
+
         displayTeam(newData)
     }
 
@@ -400,24 +366,22 @@ const  displayTeam = (list)=>{
         document.getElementById("err").remove()
     }
 
-    console.log("a")
+
      const eventArr = list["player"]
 
          if(eventArr==null&&output.children[0].id!="err"){
-    console.log("err")
+  
     let newMsg = document.createElement("p")
     newMsg.setAttribute("id","err")
     newMsg.textContent="Error! Please try a different option."
-    console.log(output)
+
     output.insertBefore(newMsg, output.children[0]);
 
 
-    console.log(list)
-    // output.innerHTML= ""
     teamDiv.classList.add("hidden")
          }
     if(document.querySelector(".playerInfoDiv")){
-        console.log("yes")
+    
       
         document.querySelectorAll(".playerInfoDiv").forEach((e)=>{
             e.remove()
@@ -425,7 +389,7 @@ const  displayTeam = (list)=>{
     }
 
     let players = list.player
-    console.log(players)
+
 
     for(player of players){
       let newPlayerInfoDiv = document.createElement("div")
